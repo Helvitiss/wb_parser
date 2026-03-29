@@ -22,21 +22,31 @@
 - рейтинг
 - количество отзывов
 
-## Быстрый старт
+## Запуск через uv
 
-1. Установить зависимости:
 ```bash
 uv sync
-```
-
-2. Заполнить `.env` (минимум токен):
-```env
-WB_X_WBAAS_TOKEN=ваш_актуальный_токен
-```
-
-3. Запустить:
-```bash
 uv run python main.py
+```
+
+## Запуск через pip (без uv)
+
+### Windows PowerShell
+
+```powershell
+python -m venv .venv
+.\.venv\Scripts\Activate.ps1
+pip install -r requirements.txt
+python main.py
+```
+
+### Linux/macOS
+
+```bash
+python3 -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
+python main.py
 ```
 
 Результат сохраняется в `output/products.csv`.
@@ -45,21 +55,25 @@ uv run python main.py
 
 Основные переменные окружения:
 
-- `WB_X_WBAAS_TOKEN` — токен cookie `x_wbaas_token` (обязателен).
-- `WB_TIMEOUT_SEC` — таймаут запросов поиска.
-- `WB_RETRY_TOTAL` — число ретраев для временных HTTP-ошибок.
-- `WB_MIN_DELAY_SEC` / `WB_MAX_DELAY_SEC` — пауза между страницами.
-- `WB_CARD_TIMEOUT_SEC` — таймаут запроса карточки товара.
-- `WB_CARD_HOST_ATTEMPTS` — число попыток подбора `basket-*` хоста.
+- `WB_X_WBAAS_TOKEN` - токен cookie `x_wbaas_token` (обязателен).
+- `WB_TIMEOUT_SEC` - таймаут запросов поиска.
+- `WB_RETRY_TOTAL` - число ретраев для временных HTTP-ошибок.
+- `WB_MIN_DELAY_SEC` / `WB_MAX_DELAY_SEC` - пауза между страницами.
+- `WB_CARD_TIMEOUT_SEC` - таймаут запроса карточки товара.
+- `WB_CARD_HOST_ATTEMPTS` - число попыток подбора `basket-*` хоста.
 
 `.env` подгружается автоматически через `python-dotenv`.
 
+Пример `.env`:
+
+```env
+WB_X_WBAAS_TOKEN=ваш_актуальный_токен
+```
+
 ## Запуск через CLI
 
-Можно запускать и через CLI:
-
 ```bash
-uv run python -m wb_parser.cli "пальто" --pages 2 --output output/products.csv
+python -m wb_parser.cli "пальто" --pages 2 --output output/products.csv
 ```
 
 ## Если получаешь 498
@@ -72,8 +86,8 @@ uv run python -m wb_parser.cli "пальто" --pages 2 --output output/products
 
 ## Структура проекта
 
-- `scraper.py` — основной класс парсера.
-- `models.py` — модель данных товара.
-- `config.py` — конфигурация и переменные окружения.
-- `main.py` — простой запуск из файла.
-- `wb_parser/cli.py` — запуск через аргументы командной строки.
+- `scraper.py` - основной класс парсера.
+- `models.py` - модель данных товара.
+- `config.py` - конфигурация и переменные окружения.
+- `main.py` - простой запуск из файла.
+- `wb_parser/cli.py` - запуск через аргументы командной строки.
