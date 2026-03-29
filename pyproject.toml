@@ -1,0 +1,13 @@
+[project]
+name = "wb-parser"
+version = "0.1.0"
+description = "Educational Wildberries parser for a test assignment"
+requires-python = ">=3.13"
+dependencies = [
+    "loguru>=0.7.3",
+    "python-dotenv>=1.2.2",
+    "requests>=2.32.5",
+]
+
+[project.scripts]
+wb-parser = "wb_parser.cli:main"
